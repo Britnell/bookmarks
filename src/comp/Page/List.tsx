@@ -26,7 +26,7 @@ export default function List({ bookmarks }: Props) {
 
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
-  console.log(date);
+  // TODO - error check
   return date.toLocaleDateString("en-GB", {
     weekday: "short",
     month: "numeric",
@@ -53,7 +53,7 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
         <fetcher.Form method="post" action="/remove">
           <input
             name="timestamp"
-            value={bookmark.timestamp}
+            defaultValue={bookmark.timestamp}
             className="hidden"
           />
           <button type="submit">X</button>
