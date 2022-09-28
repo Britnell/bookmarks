@@ -6,8 +6,6 @@ interface Props {
 }
 
 export default function List({ bookmarks }: Props) {
-  console.log(" <list ", bookmarks);
-
   return (
     <div>
       <div>

@@ -1,20 +1,14 @@
 import { useLoaderData, Link } from "react-router-dom";
-
-const PAGE_SIZE = 3;
-
-export const getNumPages = (bookmarks: any[]) =>
-  Math.ceil(bookmarks.length / PAGE_SIZE);
+import { getNumPages } from "../../lib/bookmarks";
 
 export default function Navi() {
-  const { page, bookmarks } = useLoaderData() as {
+  const { page, bookmarks, pages } = useLoaderData() as {
     page: string;
     bookmarks: any[];
+    pages: number;
   };
 
   const p = parseInt(page);
-  const pages = getNumPages(bookmarks);
-
-  console.log("navi", p, pages);
 
   return (
     <div>
@@ -49,7 +43,6 @@ const PageLink = ({
 }) => {
   let style = ` w-10 h-10 underline `;
   if (current === page) style += " bg-blue-200";
-  console.log({ current, page, style });
 
   if (page < 1 || page > pages) {
     if (label) return <div className={style}></div>;

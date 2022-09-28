@@ -1,12 +1,8 @@
 import { useLoaderData, json, redirect } from "react-router-dom";
-import {
-  fetchBookmarksPage,
-  BookmarkI,
-  removeBookmark,
-} from "../../lib/bookmarks";
-import { addBookmark } from "../../lib/bookmarks";
+import { fetchBookmarks, BookmarkI, removeBookmark } from "../../lib/bookmarks";
+import { addBookmark, getNumPages } from "../../lib/bookmarks";
 import List from "./List";
-import Navi, { getNumPages } from "./Navi";
+import Navi from "./Navi";
 
 interface LoaderI {
   page: number;
@@ -14,8 +10,7 @@ interface LoaderI {
 }
 
 export default function Page({}) {
-  const { page, bookmarks } = useLoaderData() as LoaderI;
-  console.log("<page ", page, bookmarks);
+  const { bookmarks } = useLoaderData() as LoaderI;
 
   return (
     <div>
@@ -30,13 +25,12 @@ export default function Page({}) {
 export const loader = async ({ params }: any) => {
   let parse = params.page ? parseInt(params.page) : 1;
   const page = isNaN(parse) ? 1 : parse;
-  const { data: bookmarks } = await fetchBookmarksPage(page);
-
-  // check valid page number
-  const pages = getNumPages(bookmarks);
-  if (page > pages) return redirect(`/${pages}`);
-
-  return json({ bookmarks, page }, { status: 200 });
+  try {
+    const { data: bookmarks, pages } = await fetchBookmarks(page);
+    return json({ bookmarks, page, pages }, { status: 200 });
+  } catch (e) {
+    return redirect(`/`);
+  }
 };
 
 export const action = async ({

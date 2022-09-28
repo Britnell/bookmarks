@@ -5,6 +5,7 @@ export interface BookmarkI {
 
 export interface getBookmarksReturnI {
   data: BookmarkI[];
+  pages: number;
 }
 
 export const emptyBookmark = {
@@ -13,7 +14,7 @@ export const emptyBookmark = {
 };
 
 // mock fetcher to be replaced with real query later
-export const fetchBookmarksPage = async (
+export const fetchBookmarks = async (
   page: number
 ): Promise<getBookmarksReturnI> => {
   const bookmarks = readBookmarkStorage().sort((a, b) => {
@@ -21,7 +22,15 @@ export const fetchBookmarksPage = async (
     if (a.timestamp > b.timestamp) return -1;
     return 0;
   });
-  return { data: bookmarks };
+
+  const pages = getNumPages(bookmarks);
+
+  // get slice of page
+  const beg = (page - 1) * PAGE_SIZE;
+  const end = beg + PAGE_SIZE;
+  const pageBookmarks = bookmarks.slice(beg, end);
+
+  return { data: pageBookmarks, pages };
 };
 
 const STORAGE_ID = "bookmarks_app_storage";
@@ -63,3 +72,8 @@ export const removeBookmark = async (timestamp: number) => {
   const _bookmarks = bookmarks.filter((bm) => bm.timestamp !== timestamp);
   writeBookmarkStorage(_bookmarks);
 };
+
+const PAGE_SIZE = 3;
+
+export const getNumPages = (bookmarks: any[]) =>
+  Math.ceil(bookmarks.length / PAGE_SIZE);
