@@ -11,7 +11,7 @@ import Page, { loader as pageLoader, action as pageAction } from "./comp/Page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />}>
+    <Route path="/" element={<Root />} errorElement={<div>Error </div>}>
       <Route index element={<Page />} loader={pageLoader} />
       <Route
         path=":page"

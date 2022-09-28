@@ -16,7 +16,7 @@ export default function List({ bookmarks }: Props) {
       <div>
         <ul>
           {bookmarks.map((bm) => (
-            <ListItem bookmark={bm} />
+            <ListItem key={bm.timestamp} bookmark={bm} />
           ))}
         </ul>
       </div>
@@ -24,13 +24,26 @@ export default function List({ bookmarks }: Props) {
   );
 }
 
+const formatDate = (timestamp: number) => {
+  const date = new Date(timestamp);
+  console.log(date);
+  return date.toLocaleDateString("en-GB", {
+    weekday: "short",
+    month: "numeric",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+  });
+};
+
 const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
   return (
     <li className="flex gap-8">
       <div>
         <a href={bookmark.url}>
           <div>
-            <span>{bookmark.url}</span> - <span>{bookmark.timestamp}</span>
+            <span>{bookmark.url}</span> -{" "}
+            <span>{formatDate(bookmark.timestamp)}</span>
           </div>
         </a>
       </div>
