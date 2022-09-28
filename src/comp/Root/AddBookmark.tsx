@@ -8,9 +8,15 @@ export default function AddBookmark() {
       <div>
         <h3>Add bookmark</h3>
       </div>
-      <fetcher.Form method="post" action="/add">
-        <input type="url" name="url" />
-        <button type="submit">Add</button>
+      <fetcher.Form method="post" action="/add" className="flex gap-4">
+        <input
+          type="url"
+          name="url"
+          className="flex-grow border-2 border-gray-500 px-2 py-2"
+        />
+        <button type="submit" className="p-2 bg-gray-200 hover:bg-blue-200">
+          Add
+        </button>
       </fetcher.Form>
     </div>
   );

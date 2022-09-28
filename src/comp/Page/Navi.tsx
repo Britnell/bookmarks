@@ -1,8 +1,7 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { getNumPages } from "../../lib/bookmarks";
 
 export default function Navi() {
-  const { page, bookmarks, pages } = useLoaderData() as {
+  const { page, pages } = useLoaderData() as {
     page: string;
     bookmarks: any[];
     pages: number;

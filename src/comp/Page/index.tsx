@@ -13,11 +13,9 @@ export default function Page({}) {
   const { bookmarks } = useLoaderData() as LoaderI;
 
   return (
-    <div>
-      <div>
-        <List bookmarks={bookmarks} />
-        <Navi />
-      </div>
+    <div className="">
+      <List bookmarks={bookmarks} />
+      <Navi />
     </div>
   );
 }
