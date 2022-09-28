@@ -57,3 +57,9 @@ export const addBookmark = async (url: string) => {
   bookmarks.push(_new);
   writeBookmarkStorage(bookmarks);
 };
+
+export const removeBookmark = async (timestamp: number) => {
+  const bookmarks = readBookmarkStorage();
+  const _bookmarks = bookmarks.filter((bm) => bm.timestamp === timestamp);
+  writeBookmarkStorage(_bookmarks);
+};

@@ -6,7 +6,7 @@ export default function AddBookmark() {
       <div>
         <h3>Add bookmark</h3>
       </div>
-      <Form method="post" action="/0">
+      <Form method="post" action="/add">
         <input type="url" name="url" />
         <button type="submit">Add</button>
       </Form>

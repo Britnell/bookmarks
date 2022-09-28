@@ -1,6 +1,11 @@
 import { useLoaderData, json } from "react-router-dom";
-import { fetchBookmarksPage, BookmarkI } from "../../lib/bookmarks";
+import {
+  fetchBookmarksPage,
+  BookmarkI,
+  removeBookmark,
+} from "../../lib/bookmarks";
 import { addBookmark } from "../../lib/bookmarks";
+import List from "./List";
 
 interface LoaderI {
   page: number;
@@ -14,7 +19,7 @@ export default function Page({}) {
   return (
     <div>
       <div>
-        <div> [ bookmarks ] </div>
+        <List bookmarks={bookmarks} />
         <h3>page #{page} </h3>
       </div>
     </div>
@@ -29,6 +34,7 @@ export const loader = async ({ params }: any) => {
 };
 
 export const action = async ({
+  params,
   request,
 }: {
   params: any;
@@ -36,10 +42,24 @@ export const action = async ({
 }) => {
   if (request.method !== "POST") throw { error: " POST request only " };
 
-  const { url }: { url?: string } = Object.fromEntries(
-    await request.formData()
-  );
+  const { url, timestamp }: { url?: string; timestamp?: string } =
+    Object.fromEntries(await request.formData());
 
-  if (!url) throw { error: 'req requires "url" ' };
-  addBookmark(url);
+  console.log("/ action ", params);
+
+  const { page } = params;
+  if (page === "add") {
+    if (!url) throw { error: 'req requires "url" ' };
+    addBookmark(url);
+  }
+
+  if (page === "remove") {
+    if (!timestamp) throw { error: 'req requires "timestamp" ' };
+    try {
+      const ts = parseInt(timestamp);
+      removeBookmark(ts);
+    } catch (e) {
+      throw { error: "invalid timestamp" };
+    }
+  }
 };
