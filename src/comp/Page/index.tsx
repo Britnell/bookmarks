@@ -1,5 +1,6 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 import { fetchBookmarksPage, BookmarkI } from "../../lib/bookmarks";
+import { addBookmark } from "../../lib/bookmarks";
 
 interface LoaderI {
   page: number;
@@ -13,16 +14,32 @@ export default function Page({}) {
   return (
     <div>
       <div>
-        <h3>page </h3>
+        <div> [ bookmarks ] </div>
+        <h3>page #{page} </h3>
       </div>
     </div>
   );
 }
 
-export const loader = async ({ params }: any): Promise<LoaderI> => {
+export const loader = async ({ params }: any) => {
   let parse = params.page ? parseInt(params.page) : 0;
   const page = isNaN(parse) ? 0 : parse;
-
   const { data: bookmarks } = await fetchBookmarksPage(page);
-  return { page, bookmarks };
+  return json({ bookmarks, page }, { status: 200 });
+};
+
+export const action = async ({
+  request,
+}: {
+  params: any;
+  request: Request;
+}) => {
+  if (request.method !== "POST") throw { error: " POST request only " };
+
+  const { url }: { url?: string } = Object.fromEntries(
+    await request.formData()
+  );
+
+  if (!url) throw { error: 'req requires "url" ' };
+  addBookmark(url);
 };

@@ -5,4 +5,4 @@
 - create vite
 - tailwind
 - react router
-  - loader doesnt seem to have types
+  - loader doesnt seem to have nice typescript yet

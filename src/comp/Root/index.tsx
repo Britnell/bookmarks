@@ -4,9 +4,9 @@ import AddBookmark from "./AddBookmark";
 export default function Root() {
   return (
     <div>
-      <div>
-        <h1>App</h1>
-      </div>
+      <header>
+        <h1>BOokmarks App</h1>
+      </header>
       <AddBookmark />
       <div>
         <Outlet />
