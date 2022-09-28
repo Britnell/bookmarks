@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import AddBookmark from "./AddBookmark";
 
 export default function Root() {
   return (
@@ -6,7 +7,7 @@ export default function Root() {
       <div>
         <h1>App</h1>
       </div>
-      <div>Add Bookmark</div>
+      <AddBookmark />
       <div>
         <Outlet />
       </div>
