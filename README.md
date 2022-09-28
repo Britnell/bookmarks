@@ -5,4 +5,10 @@
 - create vite
 - tailwind
 - react router
-  - loader doesnt seem to have nice typescript yet
+
+  - doesnt seem to have nice typescript yet ...
+
+  # TDD
+
+  - Web app for saving bookmarks. localStorage is used.
+  - React router for data loading and pagination

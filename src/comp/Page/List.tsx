@@ -38,7 +38,7 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
   const fetcher = useFetcher();
 
   return (
-    <li className="flex gap-8 hover:bg-gray-300 px-4 py-1">
+    <li className="flex gap-8  items-center hover:bg-gray-300 px-4 py-1">
       <a href={bookmark.url} className="flex-grow ">
         <div className="flex gap-4">
           <span className="flex-grow">{bookmark.url}</span>
