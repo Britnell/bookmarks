@@ -1,3 +1,6 @@
+# npm 
+pnpm-lock.yaml
+
 # Logs
 logs
 *.log
@@ -22,3 +25,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
