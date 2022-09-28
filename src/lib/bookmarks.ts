@@ -16,7 +16,12 @@ export const emptyBookmark = {
 export const fetchBookmarksPage = async (
   page: number
 ): Promise<getBookmarksReturnI> => {
-  return { data: readBookmarkStorage() };
+  const bookmarks = readBookmarkStorage().sort((a, b) => {
+    if (a.timestamp < b.timestamp) return 1;
+    if (a.timestamp > b.timestamp) return -1;
+    return 0;
+  });
+  return { data: bookmarks };
 };
 
 const STORAGE_ID = "bookmarks_app_storage";
@@ -28,7 +33,10 @@ export const readBookmarkStorage = (): BookmarkI[] => {
 
   try {
     const storage = JSON.parse(data);
-    return storage.data;
+    const bookmarks = storage?.data;
+    if (!bookmarks || !Array.isArray(bookmarks)) return [];
+    // clean data array? - check if url and timestamp exist
+    return bookmarks;
   } catch (e) {
     console.log(" Error parsing local storage JSON ", data);
     return [];
@@ -45,6 +53,7 @@ export const addBookmark = async (url: string) => {
     timestamp: Date.now(),
     url,
   };
+  // TODO - check if timestamp exist already
   bookmarks.push(_new);
   writeBookmarkStorage(bookmarks);
 };
