@@ -60,6 +60,6 @@ export const addBookmark = async (url: string) => {
 
 export const removeBookmark = async (timestamp: number) => {
   const bookmarks = readBookmarkStorage();
-  const _bookmarks = bookmarks.filter((bm) => bm.timestamp === timestamp);
+  const _bookmarks = bookmarks.filter((bm) => bm.timestamp !== timestamp);
   writeBookmarkStorage(_bookmarks);
 };

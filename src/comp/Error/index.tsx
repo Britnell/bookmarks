@@ -1,6 +1,7 @@
+import React, { ReactNode } from "react";
 import { useRouteError } from "react-router-dom";
 
-export default function Error() {
+export default function Error({ children }: { children: ReactNode }) {
   const error = useRouteError();
   console.log(" ERROR ", error);
 
@@ -8,6 +9,7 @@ export default function Error() {
     <div>
       Error
       <div>{JSON.stringify(error)}</div>
+      {children}
     </div>
   );
 }

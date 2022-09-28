@@ -8,10 +8,21 @@ import {
 } from "react-router-dom";
 import Root from "./comp/Root";
 import Page, { loader as pageLoader, action as pageAction } from "./comp/Page";
+import Error from "./comp/Error";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />} errorElement={<div>Error </div>}>
+    <Route
+      path="/"
+      element={<Root />}
+      errorElement={
+        <Error>
+          <div>
+            <h1>App had an Error - please reload</h1>
+          </div>
+        </Error>
+      }
+    >
       <Route index element={<Page />} loader={pageLoader} />
       <Route
         path=":page"

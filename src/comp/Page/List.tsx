@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 import { BookmarkI } from "../../lib/bookmarks";
 
 interface Props {
@@ -37,6 +37,8 @@ const formatDate = (timestamp: number) => {
 };
 
 const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
+  const fetcher = useFetcher();
+
   return (
     <li className="flex gap-8">
       <div>
@@ -48,14 +50,14 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
         </a>
       </div>
       <div>
-        <Form method="post" action="/remove">
+        <fetcher.Form method="post" action="/remove">
           <input
             name="timestamp"
             value={bookmark.timestamp}
             className="hidden"
           />
           <button type="submit">X</button>
-        </Form>
+        </fetcher.Form>
       </div>
     </li>
   );

@@ -6,6 +6,7 @@ import {
 } from "../../lib/bookmarks";
 import { addBookmark } from "../../lib/bookmarks";
 import List from "./List";
+import Navi from "./Navi";
 
 interface LoaderI {
   page: number;
@@ -20,7 +21,7 @@ export default function Page({}) {
     <div>
       <div>
         <List bookmarks={bookmarks} />
-        <h3>page #{page} </h3>
+        <Navi />
       </div>
     </div>
   );
@@ -40,6 +41,8 @@ export const action = async ({
   params: any;
   request: Request;
 }) => {
+  console.log(" /ADD ", params);
+
   if (request.method !== "POST") throw { error: " POST request only " };
 
   const { url, timestamp }: { url?: string; timestamp?: string } =
