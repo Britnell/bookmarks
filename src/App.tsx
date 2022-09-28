@@ -1,11 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import Root from "./comp/Root";
+import Page, { loader as pageLoader } from "./comp/Page";
 
-  return <div className="flex bg-red-300">APP</div>;
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route index element={<Page />} loader={pageLoader} />
+      <Route path=":page" element={<Page />} loader={pageLoader} />
+    </Route>
+  )
+);
+
+function App() {
+  return (
+    <RouterProvider router={router} fallbackElement={<div>Fallback</div>} />
+  );
 }
 
 export default App;
