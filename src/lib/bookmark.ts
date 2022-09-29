@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface BookmarkI {
   url: string;
@@ -13,15 +13,14 @@ export const bookmarkSlice = createSlice({
     list: initialState,
   },
   reducers: {
-    addBookmark: (state, action) => {
-      const { url } = action.payload;
+    addBookmark: (state, action: PayloadAction<string>) => {
       const timestamp = Date.now();
-      state.list.push({ url, timestamp });
+      state.list.push({ url: action.payload, timestamp });
     },
-    removeBookmark: (state, action) => {
+    removeBookmark: (state, action: PayloadAction<number>) => {
       state.list = state.list.filter((bm) => bm.timestamp !== action.payload);
     },
-    updateBookmark: (state, action) => {
+    updateBookmark: (state, action:PayloadAction<BookmarkI) => {
       const { timestamp, url } = action.payload;
       let index = state.list.findIndex((bm) => bm.timestamp === timestamp);
       state.list[index].url = url;

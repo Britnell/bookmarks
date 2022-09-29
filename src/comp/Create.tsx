@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useAppDispatch } from "../lib/store";
-import { addBookmark, removeBookmark, BookmarkI } from "../lib/bookmark";
+import { addBookmark } from "../lib/bookmark";
 
 export default function Create() {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ export default function Create() {
 
   const add = (ev: FormEvent) => {
     ev.preventDefault();
-    dispatch(addBookmark({ url: urlInput }));
+    dispatch(addBookmark(urlInput));
     setUrlinput("");
   };
 
