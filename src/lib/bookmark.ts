@@ -20,7 +20,7 @@ export const bookmarkSlice = createSlice({
     removeBookmark: (state, action: PayloadAction<number>) => {
       state.list = state.list.filter((bm) => bm.timestamp !== action.payload);
     },
-    updateBookmark: (state, action:PayloadAction<BookmarkI) => {
+    updateBookmark: (state, action: PayloadAction<BookmarkI>) => {
       const { timestamp, url } = action.payload;
       let index = state.list.findIndex((bm) => bm.timestamp === timestamp);
       state.list[index].url = url;
