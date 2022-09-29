@@ -1,3 +1,5 @@
+const PAGE_SIZE = 10;
+
 export interface BookmarkI {
   url: string;
   timestamp: number;
@@ -73,7 +75,16 @@ export const removeBookmark = async (timestamp: number) => {
   writeBookmarkStorage(_bookmarks);
 };
 
-const PAGE_SIZE = 3;
+export const updateBookmark = async (url: string, timestamp: number) => {
+  const bookmarks = readBookmarkStorage();
+
+  bookmarks.forEach((bm) => {
+    if (bm.timestamp === timestamp) {
+      bm.url = url;
+    }
+  });
+  writeBookmarkStorage(bookmarks);
+};
 
 export const getNumPages = (bookmarks: any[]) =>
   Math.ceil(bookmarks.length / PAGE_SIZE);

@@ -7,8 +7,9 @@ import {
   Route,
 } from "react-router-dom";
 import Root from "./comp/Root";
-import Page, { loader as pageLoader, action as pageAction } from "./comp/Page";
+import Page, { loader as pageLoader } from "./comp/Page";
 import Error from "./comp/Error";
+import { addAction, rmvAction, updAction } from "./comp/actions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,12 +25,10 @@ const router = createBrowserRouter(
       }
     >
       <Route index element={<Page />} loader={pageLoader} />
-      <Route
-        path=":page"
-        element={<Page />}
-        loader={pageLoader}
-        action={pageAction}
-      />
+      <Route path="/add" action={addAction} />
+      <Route path="/rmv" action={rmvAction} />
+      <Route path="/update" action={updAction} />
+      <Route path=":page" element={<Page />} loader={pageLoader} />
     </Route>
   )
 );

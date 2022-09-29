@@ -22,9 +22,6 @@ export default function Navi() {
         </div>
         <PageLink pages={pages} current={p} page={p + 1} label=">" />
       </div>
-      <div>
-        page {p} of {pages}
-      </div>
     </div>
   );
 }
