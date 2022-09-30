@@ -4,7 +4,7 @@ import List from "./comp/List";
 
 function App() {
   return (
-    <div className="page max-w-xl mx-auto">
+    <div className="page max-w-xl mx-auto ">
       <header>
         <Header />
       </header>

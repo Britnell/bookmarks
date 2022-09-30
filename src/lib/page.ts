@@ -18,6 +18,3 @@ export const pageSlice = createSlice({
 export const { increment, decrement } = pageSlice.actions;
 
 export default pageSlice.reducer;
-
-// store.subscribe(() => console.log(store.getState()))
-// store.dispatch(incremented())

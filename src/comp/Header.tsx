@@ -1,4 +1,6 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
+import { useAppDispatch } from "../lib/store";
+import { deleteAll } from "../lib/bookmark";
 
 export default function Header() {
   return (
@@ -15,9 +17,9 @@ export default function Header() {
 }
 
 const Menu = () => {
-  const deleteAll = () => {
-    console.log(" DELETE ALL");
-  };
+  const dispatch = useAppDispatch();
+
+  const delete_all = () => dispatch(deleteAll());
 
   return (
     <RadixDialog.Root>
@@ -26,7 +28,7 @@ const Menu = () => {
       </RadixDialog.Trigger>
       <RadixDialog.Portal>
         <RadixDialog.Overlay />
-        <RadixDialog.Content className="inset-center w-5/6 max-w-2xl mx-auto  bg-gray-300 p-8 rounded-3xl shadow-2xl ">
+        <RadixDialog.Content className="inset-center-x top-4 w-5/6 max-w-2xl bg-gray-300 p-8 rounded-3xl shadow-2xl ">
           <RadixDialog.Title className="text-xl font-semibold mb-4">
             Settings
           </RadixDialog.Title>
@@ -44,7 +46,7 @@ const Menu = () => {
                   </label>
                   <button
                     name="delete"
-                    onClick={deleteAll}
+                    onClick={delete_all}
                     className="bg-red-500 text-white font-semibold px-3 py-1 hover:bg-red-800"
                   >
                     Delete
