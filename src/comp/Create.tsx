@@ -7,6 +7,12 @@ const urlRegex =
 
 const validate_url = (str: string) => str.match(urlRegex);
 
+const existing_url = (url: string) =>
+  fetch(url, {
+    method: "GET",
+    mode: "no-cors",
+  });
+
 export default function Create() {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<{
@@ -27,17 +33,8 @@ export default function Create() {
     }
 
     // check url exists
-    // try {
-    //   await fetch(urlInput, {
-    //     method: "GET",
-    //     mode: "no-cors",
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-
-    //   setError({ exist: true });
-    //   return;
-    // }
+    // try {      await existing_url(urlInput);    } catch (e)
+    // {      setError({ exist: true });      return;    }
 
     // Add bookmark
     setError(null);
@@ -48,6 +45,12 @@ export default function Create() {
   useEffect(() => {
     // when url is valid, revalidate on text entry
     if (!error || !error?.valid) return;
+
+    // error clears when input is empty
+    if (urlInput === "") {
+      setError(null);
+      return;
+    }
 
     const _valid = validate_url(urlInput);
     if (_valid) setError(null);
