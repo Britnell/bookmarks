@@ -32,28 +32,58 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
     setEditing(false);
   };
 
+  const styles = {
+    url: "flex-grow",
+    button: "rounded-md h-9 px-2 hover:bg-gray-200 capitalize",
+  };
+
   return (
-    <li className=" list-none p-2 bg-gray-100 rounded-md ">
-      {editing ? (
-        <div>
-          <input
-            value={editValue}
-            onChange={(ev) => setEditValue(ev.target.value)}
-          />
-          <button onClick={() => setEditing(false)}>cancel</button>
-          <button onClick={update}>Update</button>
-        </div>
-      ) : (
-        <div className="flex gap-4">
-          <a href={bookmark.url} className="flex-grow">
-            {bookmark.url}
-          </a>
-          <button onClick={() => setEditing(true)}>edit</button>
-          <button onClick={() => dispatch(removeBookmark(bookmark.timestamp))}>
-            delete
-          </button>
-        </div>
-      )}
+    <li className=" list-none px-2 py-1 bg-gray-100 rounded-md ">
+      <div className="flex gap-4 items-center">
+        {editing ? (
+          <>
+            <input
+              value={editValue}
+              onChange={(ev) => setEditValue(ev.target.value)}
+              className={
+                styles.url + " py-1 px-2 border-2 border-blue-300 rounded-md"
+              }
+            />
+            <button className={styles.button} onClick={() => setEditing(false)}>
+              cancel
+            </button>
+            <button
+              className={styles.button + " bg-blue-300 hover:bg-blue-300"}
+              onClick={update}
+            >
+              Update
+            </button>
+          </>
+        ) : (
+          <>
+            <a
+              href={bookmark.url}
+              className={
+                styles.url +
+                " hover:underline text-ellipsis whitespace-nowrap overflow-hidden"
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {bookmark.url}
+            </a>
+            <button className={styles.button} onClick={() => setEditing(true)}>
+              edit
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => dispatch(removeBookmark(bookmark.timestamp))}
+            >
+              delete
+            </button>
+          </>
+        )}
+      </div>
     </li>
   );
 };

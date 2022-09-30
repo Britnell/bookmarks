@@ -27,15 +27,17 @@ export default function Create() {
     }
 
     // check url exists
-    try {
-      await fetch(urlInput, {
-        method: "GET",
-        mode: "no-cors",
-      });
-    } catch (e) {
-      setError({ exist: true });
-      return;
-    }
+    // try {
+    //   await fetch(urlInput, {
+    //     method: "GET",
+    //     mode: "no-cors",
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+
+    //   setError({ exist: true });
+    //   return;
+    // }
 
     // Add bookmark
     setError(null);
