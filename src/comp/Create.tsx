@@ -52,21 +52,34 @@ export default function Create() {
   }, [urlInput, error]);
 
   return (
-    <div>
+    <div className="mt-4">
       <form onSubmit={add}>
-        <input
-          name="url"
-          value={urlInput}
-          onChange={(ev) => setUrlinput(ev.target.value)}
-        />
-        <button type="submit">add</button>
+        <label className="text-lg py-2 block" htmlFor="url">
+          Add a bookmark :
+        </label>
+        <div className="flex gap-4">
+          <input
+            name="url"
+            value={urlInput}
+            placeholder="https://..."
+            onChange={(ev) => setUrlinput(ev.target.value)}
+            className="flex-grow  border-2 border-gray-400 rounded-md py-1 px-3 text-lg"
+          />
+          <button
+            type="submit"
+            className="text-lg font-semibold capitalize py-1 px-3 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white"
+          >
+            add
+          </button>
+        </div>
       </form>
-      {error?.valid && (
-        <div>Please provide a valid url. ( full url inlcuding http/s )</div>
-      )}
-      {error?.exist && (
-        <div>URL does not seem to exist, please double check</div>
-      )}
+      <div className="h-10">
+        <div className="errormsg p-2 text-red-800 text-lg">
+          {error?.valid &&
+            "Please provide a valid url. ( full url inlcuding http/s )"}
+          {error?.exist && "URL does not seem to exist, please double check"}
+        </div>
+      </div>
     </div>
   );
 }

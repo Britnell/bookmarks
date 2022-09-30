@@ -7,9 +7,11 @@ export default function List() {
 
   return (
     <div>
-      {bookmarks.map((bm) => (
-        <ListItem key={bm.timestamp} bookmark={bm} />
-      ))}
+      <ul className="flex flex-col gap-2">
+        {bookmarks.map((bm) => (
+          <ListItem key={bm.timestamp} bookmark={bm} />
+        ))}
+      </ul>
     </div>
   );
 }
@@ -29,8 +31,9 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
     );
     setEditing(false);
   };
+
   return (
-    <li>
+    <li className=" list-none p-2 bg-gray-100 rounded-md ">
       {editing ? (
         <div>
           <input
@@ -41,8 +44,10 @@ const ListItem = ({ bookmark }: { bookmark: BookmarkI }) => {
           <button onClick={update}>Update</button>
         </div>
       ) : (
-        <div>
-          <div>{bookmark.url}</div>
+        <div className="flex gap-4">
+          <a href={bookmark.url} className="flex-grow">
+            {bookmark.url}
+          </a>
           <button onClick={() => setEditing(true)}>edit</button>
           <button onClick={() => dispatch(removeBookmark(bookmark.timestamp))}>
             delete
